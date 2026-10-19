@@ -7,7 +7,11 @@ work=root/'artifacts/setup';payload=work/'payload';generated=work/'generated'
 payload.mkdir(parents=True,exist_ok=True);generated.mkdir(exist_ok=True)
 temp=root/'artifacts/temp';temp.mkdir(exist_ok=True);env=dict(os.environ,TMP=str(temp),TEMP=str(temp))
 driver=root/'artifacts/native/Lide25Wia.dll';digest=hashlib.sha256(driver.read_bytes()).hexdigest()
-(generated/'setup_manifest.h').write_text('#pragma once\n#define L25_DRIVER_SHA256 "'+digest+'"\n')
+twain={bits:root/f'artifacts/native/Lide25Twain{bits}.ds' for bits in [32,64]}
+header='#pragma once\n#define L25_DRIVER_SHA256 "'+digest+'"\n'
+for bits,file in twain.items():header+=f'#define L25_TWAIN{bits}_SHA256 "'+hashlib.sha256(file.read_bytes()).hexdigest()+'"\n'
+for bits in [32,64]:header+=f'#define L25_DSM{bits}_SHA256 "'+hashlib.sha256((root/f'third_party/twain-dsm/runtime/{bits}/TWAINDSM.dll').read_bytes()).hexdigest()+'"\n'
+(generated/'setup_manifest.h').write_text(header)
 gcc=shutil.which('g++.exe')
 cmd=[gcc,'-std=c++17','-O2','-g0','-s','-ffile-prefix-map='+str(root)+'=.','-ffile-prefix-map='+root.as_posix()+'=.','-D_WIN32_WINNT=0x0A00','-municode','-static','-I'+str(generated),'-I'+str(root/'third_party/wia-reference'),
      str(root/'src/setup/setup_helper.cpp'),str(root/'artifacts/native/usbscan_transport.o'),
@@ -16,12 +20,18 @@ p=subprocess.run(cmd,env=env,cwd=root,stdout=subprocess.PIPE,stderr=subprocess.S
 (work/'helper-build.log').write_bytes(p.stdout)
 if p.returncode:print(p.stdout.decode(errors='replace')[-18000:]);raise SystemExit(p.returncode)
 shutil.copy2(driver,payload/'Lide25Wia.dll')
+for bits,file in twain.items():shutil.copy2(file,payload/file.name)
+for bits in [32,64]:shutil.copy2(root/f'third_party/twain-dsm/runtime/{bits}/TWAINDSM.dll',payload/f'TwainDsm{bits}.dll')
 shutil.copy2(root/'LICENSE',payload/'LICENSE.txt')
-licenses=payload/'licenses';licenses.mkdir(exist_ok=True)
-for directory in ['sane','wia-reference','runtime-licenses','nlohmann']:
+licenses=payload/'licenses'
+if licenses.exists():
+    if licenses.resolve().parent!=payload.resolve():raise SystemExit('License output escaped the generated payload directory')
+    shutil.rmtree(licenses)
+licenses.mkdir()
+for directory in ['sane','wia-reference','runtime-licenses','nlohmann','twain','twain-dsm']:
     source=root/'third_party'/directory;target=licenses/directory;target.mkdir(exist_ok=True)
     for f in source.iterdir():
-        if f.is_file() and (f.name.startswith(('LICENSE','COPYING')) or directory=='runtime-licenses'):
+        if f.is_file() and (f.name.startswith(('LICENSE','COPYING')) or (directory=='runtime-licenses' and f.name!='UPSTREAM.json')):
             shutil.copy2(f,target/f.name)
 print('Built setup helper. Driver SHA256:',digest,flush=True)
 if opt.helper_only:raise SystemExit(0)

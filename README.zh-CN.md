@@ -2,16 +2,16 @@
 
 [English](README.md) | 简体中文
 
-本驱动为 **Canon CanoScan LiDE 25** 提供 **WIA 2.0** 扫描接口，供 **Windows 10 x64** 上的扫描软件和图像处理软件调用。独立安装包包含所需的用户态组件，并使用 Windows 自带的 USB 扫描支持。安装时无需预装佳能旧驱动、联网、安装 Python 或另行下载运行库。
+本驱动为 **Canon CanoScan LiDE 25** 提供 **WIA 2.0 和 TWAIN** 扫描接口，供 **Windows 10 x64** 上的扫描软件和图像处理软件调用。一个离线安装包会自动安装 WIA、32 位及 64 位 TWAIN 组件，**无需用户选择接口类型或组件位数**。安装时无需预装佳能旧驱动、联网、安装 Python 或另行下载运行库。
 
 ## 下载与安装
 
-1. 打开 [Releases 下载页](https://github.com/Jimi-from-mars/Canon-Scanner-LiDE-25-Driver-Windows10.x64/releases)，下载 `LiDE25-Win10-x64-Setup-0.2.0-rc1.exe`。
+1. 打开 [Releases 下载页](https://github.com/Jimi-from-mars/Canon-Scanner-LiDE-25-Driver-Windows10.x64/releases)，下载 `LiDE25-Win10-x64-Setup-0.3.0-rc1.exe`。
 2. 解开扫描仪底部的运输锁，连接 USB 线，关闭扫描软件。
 3. 运行安装程序，允许 Windows 提示的管理员权限。
-4. 重新打开扫描软件，从软件的 **WIA** 获取入口选择扫描仪。
+4. 重新打开扫描软件，在软件的扫描仪列表中选择 **CanoScan LiDE 25**。
 
-**XnView Classic** 的使用入口：**文件 → 从扫描仪或摄像头（WIA）获取 → 导入 → 扫描**。菜单名称可能随语言版本略有不同。仅支持 TWAIN 数据源的软件无法直接调用此驱动。
+**XnView Classic** 可以使用 **文件 → 从扫描仪或摄像头（WIA）获取 → 导入 → 扫描**，也可以在 **选择 TWAIN 源** 中选择 **CanoScan LiDE 25 (Open)**，然后点击获取或扫描。菜单名称可能随语言版本略有不同。使用 TWAIN 时，在扫描窗口中选择分辨率和图像模式，再点击“扫描”；扫描区域可由调用软件设置，默认为整个平板。
 
 安装程序目前没有代码签名，Windows 可能显示“未知发布者”提示。此软件包为候选版本，未经 WHQL 认证。使用时无需开启测试模式、导入根证书或修改 Windows 驱动签名策略。
 
@@ -21,26 +21,26 @@
 | --- | --- |
 | 扫描仪 | CanoScan LiDE 25，USB 标识 `04A9:2220` |
 | 操作系统 | Windows 10，Intel/AMD x64 |
-| 软件接口 | WIA 2.0；兼容的 32 位软件可通过 Windows WIA 服务调用 |
+| 软件接口 | WIA 2.0，以及原生 32 位、64 位 TWAIN 数据源 |
 | 分辨率 | 75、150、300、600、1200 dpi |
 | 图像模式 | RGB 彩色、灰度、1 位黑白 |
 | 扫描区域 | 最大约 215 × 296.9 毫米 |
 | 传输格式 | BMP；由调用软件另存或转换格式 |
 
-不支持 Windows 11、ARM64、32 位 Windows、其他扫描仪型号、机身按键或原生 TWAIN 数据源。安装包不包含独立扫描软件。安装时请只连接一台 LiDE 25。
+不支持 Windows 11、ARM64、32 位 Windows、其他扫描仪型号或机身按键。安装包不包含独立扫描软件。TWAIN 共用现有 WIA 扫描服务与设备访问控制，请结束当前扫描后再使用其他软件扫描。安装时请只连接一台 LiDE 25。
 
 ## 卸载与常见问题
 
 在 Windows **设置 → 应用 → 应用和功能** 中找到 **LiDE 25 离线扫描驱动**，选择卸载。卸载前请连接安装时使用的同一台扫描仪，并结束正在进行的扫描。卸载程序会恢复安装时备份的设备设置。
 
-如果软件中找不到扫描仪，请重新连接 USB 线、退出后重新打开软件，并确认使用的是 WIA 获取入口。如果其他软件正在扫描，请结束扫描后重试。安装或卸载失败时，请保留安装目录及其中的恢复文件。`setup-state.json` 和安装日志包含安装所在电脑的专用信息，请勿公开上传，也不要复制到其他电脑使用。
+如果软件中找不到扫描仪，请重新连接 USB 线、退出后重新打开软件，并在软件的 WIA 或 TWAIN 扫描仪列表中选择 CanoScan LiDE 25。如果其他软件正在扫描，请结束扫描后重试。升级或卸载前请关闭扫描软件，以便替换或移除其正在使用的 TWAIN 组件。安装或卸载失败时，请保留安装目录及其中的恢复文件。`setup-state.json` 和安装日志包含安装所在电脑的专用信息，请勿公开上传，也不要复制到其他电脑使用。
 
 ## 从源码构建
 
 从 Releases 下载与安装包对应的源码归档，或克隆本仓库。请在 Windows 上准备：
 
 - Python 3.10 或更新版本，可通过 `python` 命令调用。
-- x86_64 MinGW-w64 工具链，包含 GCC、G++、`windres` 和 Windows 导入库，并加入 `PATH`。
+- MinGW-w64 C/C++ 工具、`windres` 和 Windows 导入库，并加入 `PATH`。构建 TWAIN 需要 `i686-w64-mingw32-g++` 和 `x86_64-w64-mingw32-g++` 两种编译器，Windows 版 LLVM-MinGW 提供这两种目标架构；也可通过 `CXX32`、`CXX64` 环境变量指定对应编译器。
 - 支持 Unicode 的 NSIS 3，将 `makensis.exe` 加入 `PATH`；也可将便携版放在 `toolchain/nsis-<版本号>/` 下。
 
 在仓库根目录运行：
@@ -50,7 +50,7 @@ python -B tools/build.py
 python -B tools/build_installer.py
 ```
 
-驱动输出为 `artifacts/native/Lide25Wia.dll`，独立安装程序输出为 `release/LiDE25-Win10-x64-Setup-0.2.0-rc1.exe`。源码已包含构建所需的 SANE 后端及参考头文件，构建脚本不会下载依赖。准备编译器、Python 和 NSIS 与安装已编译好的驱动是两回事；普通使用者只需下载 EXE。
+驱动组件输出为 `artifacts/native/Lide25Wia.dll`、`Lide25Twain32.ds` 和 `Lide25Twain64.ds`，独立安装程序输出为 `release/LiDE25-Win10-x64-Setup-0.3.0-rc1.exe`。源码已包含构建所需的 SANE 后端及接口头文件，构建脚本不会下载依赖。准备编译器、Python 和 NSIS 与安装已编译好的驱动是两回事；普通使用者只需下载 EXE。
 
 首次完整构建后，如只修改了 WIA DLL，可运行：
 
@@ -64,12 +64,14 @@ python -B tools/build.py --wia-only
 python -B tools/package_offline_release.py
 ```
 
+若只修改了 TWAIN 代码，可先运行 `python -B tools/build_twain.py`，再重新构建安装程序。安装包包含官方 32 位、64 位 TWAIN 2.5.1 管理器，只在系统缺少时补装，不替换已有版本。共享管理器在卸载后保留，以免影响其他扫描仪。原始签名二进制及对应 Windows 源码位于 `third_party/twain-dsm/`。TWAIN 组件通过标准 Windows WIA 服务扫描，不会独立打开 USB 设备。
+
 ## 校验下载文件
 
-计算安装程序或源码归档的 SHA-256，与同一版本中的 `SHA256SUMS-0.2.0-rc1.txt` 对比：
+计算安装程序或源码归档的 SHA-256，与同一版本中的 `SHA256SUMS-0.3.0-rc1.txt` 对比：
 
 ```powershell
-Get-FileHash .\LiDE25-Win10-x64-Setup-0.2.0-rc1.exe -Algorithm SHA256
+Get-FileHash .\LiDE25-Win10-x64-Setup-0.3.0-rc1.exe -Algorithm SHA256
 ```
 
 ## 许可证

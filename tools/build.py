@@ -41,3 +41,5 @@ if (root/'src/wia/lide25_wia.cpp').exists():
 if not args.wia_only and (root/'tools/core_diag.c').exists():
     run([gcc,*flags,str(root/'tools/core_diag.c'),*objects,'-lsetupapi','-lws2_32','-lm','-o',str(out/'lide25-core-diag.exe')],'core-diag-build.log')
 (out/'toolchain.json').write_text(json.dumps({'gcc':gcc,'gxx':gxx,'flags':flags},indent=2))
+if not args.wia_only:
+    subprocess.run([sys.executable,'-B',str(root/'tools/build_twain.py')],cwd=root,env=env,check=True)

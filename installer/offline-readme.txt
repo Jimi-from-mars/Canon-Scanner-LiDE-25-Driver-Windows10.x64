@@ -1,4 +1,4 @@
-LiDE 25 WIA Driver / 离线扫描驱动 0.2.0-rc1
+LiDE 25 WIA + TWAIN Driver / 离线扫描驱动 0.3.0-rc1
 
 English
 -------
@@ -7,10 +7,11 @@ Unlock and connect the scanner, close scanning applications, then run Setup
 with administrator approval. No legacy Canon driver, internet connection,
 Python installation, or runtime download is required.
 
-Reopen your application and select its WIA acquisition menu.
+Reopen your application and select CanoScan LiDE 25 in its scanner menu.
 XnView Classic: File > Acquire from scanner or camera (WIA) > Import > Scan.
-This package provides a WIA driver, not a standalone scanning application
-or a native TWAIN data source.
+WIA and 32/64-bit TWAIN sources are installed automatically.
+You can also select CanoScan LiDE 25 (Open) from the TWAIN source list.
+No interface selection is required during installation.
 
 Uninstall through Windows Settings > Apps. Connect the same scanner and
 finish scanning before uninstalling. Keep recovery files if an operation fails.
@@ -29,7 +30,8 @@ driver-signing policy is required.
 
 安装后重新打开软件，使用 WIA 获取入口。
 XnView Classic：文件 > 从扫描仪或摄像头（WIA）获取 > 导入 > 扫描。
-本产品提供 WIA 驱动，不包含独立扫描软件或原生 TWAIN 数据源。
+安装程序会自动安装 WIA、32 位和 64 位 TWAIN 组件，无需选择接口类型。
+也可在软件的 TWAIN 数据源列表中选择 CanoScan LiDE 25 (Open) 扫描。
 
 卸载入口：Windows 设置 > 应用 > LiDE 25 离线扫描驱动 > 卸载。
 卸载前请连接同一台扫描仪并结束扫描。操作失败时请保留恢复文件。

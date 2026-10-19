@@ -5,8 +5,8 @@ Unicode true
 !define APPNAME "LiDE 25 离线扫描驱动"
 !define APPKEY "Software\LiDE25OpenDriver"
 !define UNINSTALLKEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\LiDE25OpenDriver"
-Name "${APPNAME} 0.2.0 候选测试版"
-OutFile "..\release\LiDE25-Win10-x64-Setup-0.2.0-rc1.exe"
+Name "${APPNAME} 0.3.0 候选测试版"
+OutFile "..\release\LiDE25-Win10-x64-Setup-0.3.0-rc1.exe"
 InstallDir "$PROGRAMFILES64\LiDE25 Open Driver"
 InstallDirRegKey HKLM "${APPKEY}" "InstallDir"
 RequestExecutionLevel admin
@@ -15,10 +15,10 @@ SetCompressorDictSize 32
 CRCCheck on
 ShowInstDetails show
 ShowUninstDetails show
-VIProductVersion "0.2.0.0"
+VIProductVersion "0.3.0.0"
 VIAddVersionKey /LANG=2052 "ProductName" "${APPNAME}"
 VIAddVersionKey /LANG=2052 "FileDescription" "LiDE 25 Windows 10 x64 Offline Setup"
-VIAddVersionKey /LANG=2052 "FileVersion" "0.2.0.0"
+VIAddVersionKey /LANG=2052 "FileVersion" "0.3.0.0"
 VIAddVersionKey /LANG=2052 "LegalCopyright" "Open-source components: see included licenses"
 !define MUI_ABORTWARNING
 !define MUI_WELCOMEPAGE_TITLE "安装 LiDE 25 扫描驱动"
@@ -28,7 +28,7 @@ VIAddVersionKey /LANG=2052 "LegalCopyright" "Open-source components: see include
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
 !define MUI_FINISHPAGE_TITLE "LiDE 25 驱动安装完成"
-!define MUI_FINISHPAGE_TEXT "请重新打开图像处理软件以刷新扫描设备。$\r$\n$\r$\nXnView：文件 → 从扫描仪或摄像头(WIA)获取 → 导入 → 扫描。$\r$\n$\r$\n此版本提供 WIA 接口，不包含独立扫描软件。"
+!define MUI_FINISHPAGE_TEXT "请重新打开图像处理软件以刷新扫描设备。$\r$\n$\r$\nXnView：文件 → 从扫描仪或摄像头(WIA)获取 → 导入 → 扫描。$\r$\n$\r$\n已自动安装 WIA 和 32/64 位 TWAIN 接口。请选择 CanoScan LiDE 25 扫描；无需选择驱动接口类型。"
 !define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\使用说明.txt"
 !define MUI_FINISHPAGE_SHOWREADME_TEXT "查看使用说明"
 !insertmacro MUI_PAGE_FINISH
@@ -55,6 +55,10 @@ Section "安装驱动" SEC_DRIVER
  SetOutPath "$INSTDIR"
  File "..\artifacts\setup\payload\Lide25Wia.dll"
  File "..\artifacts\setup\payload\lide25-setup-helper.exe"
+ File "..\artifacts\setup\payload\Lide25Twain32.ds"
+ File "..\artifacts\setup\payload\Lide25Twain64.ds"
+ File "..\artifacts\setup\payload\TwainDsm32.dll"
+ File "..\artifacts\setup\payload\TwainDsm64.dll"
  File /oname=LICENSE.txt "..\LICENSE"
  File /oname=使用说明.txt "offline-readme.txt"
  File /r "..\artifacts\setup\payload\licenses"
@@ -71,9 +75,9 @@ Section "安装驱动" SEC_DRIVER
   Abort
  ${EndIf}
  WriteRegStr HKLM "${APPKEY}" "InstallDir" "$INSTDIR"
- WriteRegStr HKLM "${APPKEY}" "Version" "0.2.0-rc1"
+ WriteRegStr HKLM "${APPKEY}" "Version" "0.3.0-rc1"
  WriteRegStr HKLM "${UNINSTALLKEY}" "DisplayName" "${APPNAME}"
- WriteRegStr HKLM "${UNINSTALLKEY}" "DisplayVersion" "0.2.0-rc1"
+ WriteRegStr HKLM "${UNINSTALLKEY}" "DisplayVersion" "0.3.0-rc1"
  WriteRegStr HKLM "${UNINSTALLKEY}" "Publisher" "LiDE25 Open Driver Project"
  WriteRegStr HKLM "${UNINSTALLKEY}" "InstallLocation" "$INSTDIR"
  WriteRegStr HKLM "${UNINSTALLKEY}" "UninstallString" '$\"$INSTDIR\Uninstall.exe$\"'
@@ -97,6 +101,10 @@ Section "Uninstall"
  DeleteRegKey HKLM "${APPKEY}"
  Delete /REBOOTOK "$INSTDIR\Lide25Wia.dll"
  Delete /REBOOTOK "$INSTDIR\lide25-setup-helper.exe"
+ Delete /REBOOTOK "$INSTDIR\Lide25Twain32.ds"
+ Delete /REBOOTOK "$INSTDIR\Lide25Twain64.ds"
+ Delete /REBOOTOK "$INSTDIR\TwainDsm32.dll"
+ Delete /REBOOTOK "$INSTDIR\TwainDsm64.dll"
  Delete "$INSTDIR\LICENSE.txt"
  Delete "$INSTDIR\使用说明.txt"
  Delete "$INSTDIR\Uninstall.exe"

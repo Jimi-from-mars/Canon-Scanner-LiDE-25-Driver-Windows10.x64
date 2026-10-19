@@ -1,0 +1,7 @@
+{
+  "project": "TWAIN Data Source Manager headers",
+  "repository": "https://github.com/twain/twain-dsm",
+  "commit": "a50f7326a191c786ee2d8cb8086aea24309c071f",
+  "file": "TWAIN_DSM/src/twain.h",
+  "license": "LGPL-2.1; original header copyright notices retained"
+}

@@ -1,0 +1,10 @@
+{
+  "project": "TWAIN Data Source Manager",
+  "version": "2.5.1",
+  "url": "https://github.com/twain/twain-dsm/releases/tag/v2.5.1",
+  "commit": "3491bec2960e856f8dd4823dc54245b37beed51d",
+  "runtime_sha256": {
+    "32": "cee9a6ff8026dde09eda9f892c57cc928d42e4a4d22bb740fe38ee6e91797a28",
+    "64": "25869f88a2bc76ded62a13aaea9f2084f0165bfdbbb7f46b9c3a43298938d467"
+  }
+}

@@ -1,7 +1,7 @@
 #include <windows.h>
 1 VERSIONINFO
- FILEVERSION 0,2,0,0
- PRODUCTVERSION 0,2,0,0
+ FILEVERSION 0,3,0,0
+ PRODUCTVERSION 0,3,0,0
  FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
  FILEFLAGS VS_FF_PRERELEASE
  FILEOS VOS_NT_WINDOWS32
@@ -11,10 +11,10 @@ BEGIN
  BEGIN
   BLOCK "040904b0"
   BEGIN
-   VALUE "FileDescription", "LiDE 25 Windows 10 x64 WIA 2.0 Development Driver\0"
-   VALUE "FileVersion", "0.2.0.0\0"
+   VALUE "FileDescription", "LiDE 25 Windows 10 x64 WIA 2.0 Driver\0"
+   VALUE "FileVersion", "0.3.0.0\0"
    VALUE "ProductName", "LiDE 25 Open Driver\0"
-   VALUE "ProductVersion", "0.2.0.0\0"
+   VALUE "ProductVersion", "0.3.0.0\0"
    VALUE "OriginalFilename", "Lide25Wia.dll\0"
   END
  END
