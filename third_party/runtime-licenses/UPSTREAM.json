@@ -1,0 +1,8 @@
+{
+  "GCC-COPYING.RUNTIME": "https://raw.githubusercontent.com/gcc-mirror/gcc/master/COPYING.RUNTIME",
+  "GCC-COPYING3": "https://raw.githubusercontent.com/gcc-mirror/gcc/master/COPYING3",
+  "winpthreads-COPYING": "https://raw.githubusercontent.com/mingw-w64/mingw-w64/master/mingw-w64-libraries/winpthreads/COPYING",
+  "mingw-COPYING": "https://raw.githubusercontent.com/mingw-w64/mingw-w64/master/COPYING",
+  "COPYING.MinGW-w64-runtime-COPYING.MinGW-w64-runtime.txt": "https://raw.githubusercontent.com/mingw-w64/mingw-w64/master/COPYING.MinGW-w64-runtime/COPYING.MinGW-w64-runtime.txt",
+  "COPYING.MinGW-w64-COPYING.MinGW-w64.txt": "https://raw.githubusercontent.com/mingw-w64/mingw-w64/master/COPYING.MinGW-w64/COPYING.MinGW-w64.txt"
+}

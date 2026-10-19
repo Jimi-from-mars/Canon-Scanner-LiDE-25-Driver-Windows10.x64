@@ -1,0 +1,11 @@
+/artifacts/
+/release/
+/toolchain/
+/validation/
+/backups/
+__pycache__/
+*.pyc
+setup-state.json
+setup-log.json
+setup-error.json
+setup-result.ini

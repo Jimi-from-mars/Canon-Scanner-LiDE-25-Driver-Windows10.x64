@@ -1,0 +1,22 @@
+{
+  "repositories": [
+    "https://github.com/microsoft/Windows-driver-samples",
+    "https://github.com/microsoft/win32metadata"
+  ],
+  "files": {
+    "LICENSE": "07639618c7b94ab9953cc61715f6325877e1854dca611ed9b1bd54497cf5e93a",
+    "sti.h": "c434016dbbb717ef9eebd5c1c3460d7f434cf1ced61fd9609ff5ba9450a6e78e",
+    "stiusd.h": "52f35f62a43838335b913e765f388735089f8f5ffe59489f907ea1372ef9b572",
+    "wiadef.h": "6d131422e90e1977ad3df01dc770b3290fb80ff123d535363027d50c1f1b72d6",
+    "wiadriver.cpp": "9098fdf28bcc24203121b670bc1a1a09d87924e5cd82393b431193e3b8587c6d",
+    "wiadriver.h": "78c335e4df4a97259f5c8873a03b90c88ea9b7cae968985ee0d4896a9f23f638",
+    "wiahelpers.cpp": "3047de061f24a5901c8d9c4499cea2819166b833bee1ac3ea1fa5c4ee2522a19",
+    "wiahelpers.h": "7f90d372c54bfdb08c25d1441ea2d546515263b5f5e6fb26614ebf661babcf57",
+    "wiamdef.h": "2c0b660eb1e45f293d0a09ff084455c89db807f05ac45e30d13a4a9f7a548add",
+    "wiamindr.h": "c5981f68fee24faa35c450df41e4619d55db58ec9e532c231e3faa5c8d2e4139",
+    "wiamindr_lh.h": "9add18b57f700c04aa92246b50fc1a096d14388e1adff624bcb377bac67cad44",
+    "wiapropertymanager.cpp": "ee17c394463b6e6336bcb4b9226ea0556a48ba4b2e2f3f2aca34b3ed6b7c70a3",
+    "wiapropertymanager.h": "db9b30ac73de0cb9134247f708def7cdfd657f6d018868182e9ab7a0cf7994af",
+    "wia_lh.h": "97ec7f25b7dbe97a255c143b079fe649f112e5524d8c48b6b4c4455053c6b768"
+  }
+}
